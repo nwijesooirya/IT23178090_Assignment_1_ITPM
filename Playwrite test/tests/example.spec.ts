@@ -1,9 +1,24 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-  // Navigate to the translator application
   await page.goto('https://www.swifttranslator.com/');
 });
+
+async function translateAndExpect(
+  page: Page,
+  inputText: string,
+  expectedText: string
+) {
+  const input = page.getByPlaceholder('Input Your Singlish Text Here.');
+  const output = page.locator('div.bg-slate-50').first();
+
+  await input.fill(inputText);
+
+  // Wait until translation appears (prevents empty output failures)
+  await expect(output).not.toHaveText('', { timeout: 15000 });
+
+  await expect(output).toHaveText(expectedText);
+}
 
 // ==========================================
 // 1. Positive functional cases
