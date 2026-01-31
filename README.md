@@ -1,4 +1,4 @@
-# English to Sinhala Translation Test Automation - playwrite-test
+# Singlish to Sinhala Translation Test Automation - playwrite-test
 
 ## Project Overview
 
